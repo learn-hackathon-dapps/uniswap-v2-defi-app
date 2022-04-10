@@ -11,12 +11,10 @@ jobs:
   Checkout:
     name: Checkout
     runs-on: ubuntu-latest
+    uses: learn-hackathon-dapps/node-workflow-template/.github/workflows/action.yaml@master
     steps:
       # checkout the repository
       - name: checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-  Build:
-    needs: [Checkout]
-    uses: learn-hackathon-dapps/node-workflow-template/.github/workflows/action.yaml@master
