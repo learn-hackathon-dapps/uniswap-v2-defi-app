@@ -17,8 +17,5 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "16"
-      - run: npm install
-      - run: npx hardhat compile
+      - name: Build and Compile
+        uses: learn-hackathon-dapps/node-workflow-template@master
