@@ -14,23 +14,29 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const Contract = await hre.ethers.getContractFactory("ERC20Mock");
-  const contract = await Contract.deploy();
-  await contract.deployed();
-  console.log("ERC20Mock deployed to:", contract.address);
-  saveFrontendFiles();
+  const ERC20MockContract = await hre.ethers.getContractFactory("ERC20Mock");
+  const eRC20MockContract = await ERC20MockContract.deploy();
+  await eRC20MockContract.deployed();
+  console.log("ERC20Mock deployed to:", eRC20MockContract.address);
+  saveFrontendFiles("ERC20Mock");
+
+  const DexContract = await hre.ethers.getContractFactory("Dex");
+  const dexContract = await DexContract.deploy();
+  await dexContract.deployed();
+  console.log("Dex deployed to:", dexContract.address);
+  saveFrontendFiles("Dex");
 }
 
-function saveFrontendFiles() {
+function saveFrontendFiles(filename) {
   const fs = require("fs");
   const abiDir = __dirname + "/../frontend/src/abis";
   if(!fs.existsSync(abiDir)) {
     fs.mkdirSync(abiDir);
   }
-  const artifact = artifacts.readArtifactSync("ERC20Mock");
+  const artifact = artifacts.readArtifactSync(filename);
 
   fs.writeFileSync(
-    abiDir + "/ERC20Mock.json",
+    abiDir + "/" + filename + ".json",
     JSON.stringify(artifact, null, 2)
   );
 }
